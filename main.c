@@ -189,14 +189,16 @@ int main(void) {
 
                 //UP
             case 'U':
-                //SHOUT
-                if (frameCount % 3 == 0) {
-                    aCnt++;
-                    if (aCnt >= sizeof (shout_frame) / sizeof (unsigned char)) {
-                        aCnt = 0;
-                    }
-                }
-                setPattern(shout[shout_frame[aCnt]],2);
+//                //SHOUT
+//                if (frameCount % 3 == 0) {
+//                    aCnt++;
+//                    if (aCnt >= sizeof (shout_frame) / sizeof (unsigned char)) {
+//                        aCnt = 0;
+//                    }
+//                }
+//                setPattern(shout[shout_frame[aCnt]],2);
+//                setPattern(mocopit_simple,1);
+                deletePattern();
                 break;
 
                 //DOWN
@@ -260,7 +262,7 @@ int main(void) {
                 //SIKAKU
             case 'P':
                 //BREAK HEART
-                setPattern(break_heart,0);
+                setPattern(break_heart,1);
                 break;
 
                 //STK-L LEFT
@@ -273,7 +275,7 @@ int main(void) {
                     }
                 }
                 setPattern(wave[wave_frame[aCnt]],1);
-
+                
                 break;
                 //STK-L RIGHT
                 //ENERGY
@@ -303,31 +305,35 @@ int main(void) {
 
                 //STK-L DOWN
             case 'j':
-                setPattern(garapiko,2);
+                setPattern(garapiko,1);
                 break;
 
                 //STK-R LEFT
                 //RAIBOW - LEFT
             case 'k':
-                setPattern(grn_pattern,2);
+//                setPattern(grn_pattern,2);
+                setPattern(roomba,1);
                 break;
 
                 //STK-R RIGHT
                 //RAIBOW - RIGHT
             case 'l':
-                setPattern(blu_pattern,2);
+//                setPattern(blu_pattern,2);
+                setPattern(roomba_simple,1);
                 break;
 
                 //STK-R UP
             case 'm':
                 //GURUGURU
-                setPattern(red_pattern,2);
+//                setPattern(red_pattern,2);
+                
+                setPattern(mocopit,1);
                 break;
 
                 //STK-R DOWN
             case 'n':
                 //CHOU
-                setPattern(rainbow_test,2);
+                setPattern(mocopit_simple,1);
                 break;
         }
 
@@ -344,7 +350,7 @@ void setPattern(const unsigned char* ptn , unsigned char div) {
         for (x = 0; x < 16; x++) {
             myRed = ptn[x + y * 16] >> div;
             myGrn = ptn[256 + x + y * 16] >> div;
-            myBlu = ptn[512 + x + y * 16] >> 2;
+            myBlu = ptn[512 + x + y * 16] >> div;
 
             setPixelColor((x * 2) + (y * 64), myRed, myGrn, myBlu);
             setPixelColor((x * 2) + (y * 64) + 1, myRed, myGrn, myBlu);
