@@ -9,7 +9,7 @@
 #include "animationF.h"
 //#include "animationI.h" //GURU    //NO MEMORY
 #include "animationJ.h" //WAVE
-#include "animationK.h" //SHOUT
+#include "animationM.h" //ESCARGO
 #include "animationL.h" //HANABI
 
 // SYSCLK = 40 MHz (8MHz Crystal/ FPLLIDIV * FPLLMUL / FPLLODIV)
@@ -146,8 +146,8 @@ void __ISR(_UART_1_VECTOR, IPL4) U1RXHandler(void) {
                 myData[dataPos] = RcvData;
 
                 if (RcvData == 'k' || RcvData == 'l' || RcvData == 'h' || RcvData == 'i' 
-                        || RcvData == 'U' || RcvData == 'D' || RcvData == 'L' || RcvData == 'R' 
-                        || RcvData == 'X') {
+                 || RcvData == 'U' || RcvData == 'D' || RcvData == 'L' || RcvData == 'R' 
+                 || RcvData == 'X') {
                     frameCount = 0;
                     aCnt = 0;
                 } else {
@@ -189,16 +189,16 @@ int main(void) {
 
                 //UP
             case 'U':
-//                //SHOUT
-//                if (frameCount % 3 == 0) {
-//                    aCnt++;
-//                    if (aCnt >= sizeof (shout_frame) / sizeof (unsigned char)) {
-//                        aCnt = 0;
-//                    }
-//                }
-//                setPattern(shout[shout_frame[aCnt]],2);
-//                setPattern(mocopit_simple,1);
-                deletePattern();
+                //ESCARGO
+                if (frameCount % 5 == 0) {
+                    aCnt++;
+                    if (aCnt >= sizeof (frameM_1) / sizeof (unsigned char)) {
+                        aCnt = sizeof (frameM_1) / sizeof (unsigned char)-1;
+                        //myData[0]=0;
+                    }
+                }
+                setPattern(animationM[frameM_1[aCnt]],2);
+                
                 break;
 
                 //DOWN
