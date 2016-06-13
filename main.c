@@ -9,8 +9,10 @@
 #include "animationF.h"
 //#include "animationI.h" //GURU    //NO MEMORY
 #include "animationJ.h" //WAVE
-#include "animationM.h" //ESCARGO
+//#include "animationM.h" //ESCARGO
 #include "animationL.h" //HANABI
+#include "suika.h"
+#include "sleep_heart.h" //SLEEP HEART
 
 // SYSCLK = 40 MHz (8MHz Crystal/ FPLLIDIV * FPLLMUL / FPLLODIV)
 // PBCLK  = 40 MHz
@@ -61,7 +63,7 @@ extern void setPixelColor(unsigned int pixel, unsigned char r, unsigned char g, 
 extern void show();
 extern void resetAnimation();
 extern void InitUart1();
-extern void setPattern(const unsigned char* ptn , unsigned char div);
+extern void setPattern(const unsigned char* ptn, unsigned char div);
 extern void deletePattern();
 
 #define TRIS_TX1                TRISBbits.TRISB3
@@ -134,8 +136,8 @@ void __ISR(_UART_1_VECTOR, IPL4) U1RXHandler(void) {
                 || RcvData == 'l' //STK-R RIGHT
                 || RcvData == 'm' //STK-R UP
                 || RcvData == 'n' //STK-R DOWN
-                
-                
+
+
                 || RcvData == 'a' //L1
                 || RcvData == 'b' //R1
                 || RcvData == 'c' //L2
@@ -145,9 +147,9 @@ void __ISR(_UART_1_VECTOR, IPL4) U1RXHandler(void) {
             if (lastData != RcvData) {
                 myData[dataPos] = RcvData;
 
-                if (RcvData == 'k' || RcvData == 'l' || RcvData == 'h' || RcvData == 'i' 
-                 || RcvData == 'U' || RcvData == 'D' || RcvData == 'L' || RcvData == 'R' 
-                 || RcvData == 'X') {
+                if (RcvData == 'k' || RcvData == 'l' || RcvData == 'h' || RcvData == 'i'
+                        || RcvData == 'U' || RcvData == 'D' || RcvData == 'L' || RcvData == 'R'
+                        || RcvData == 'X') {
                     frameCount = 0;
                     aCnt = 0;
                 } else {
@@ -189,16 +191,16 @@ int main(void) {
 
                 //UP
             case 'U':
-                //ESCARGO
+                //SUIKA
                 if (frameCount % 5 == 0) {
                     aCnt++;
-                    if (aCnt >= sizeof (frameM_1) / sizeof (unsigned char)) {
-                        aCnt = sizeof (frameM_1) / sizeof (unsigned char)-1;
-                        //myData[0]=0;
+                    if (aCnt >= sizeof (frame_suika) / sizeof (unsigned char)) {
+                        aCnt = sizeof (frame_suika) / sizeof (unsigned char) - 1;
                     }
                 }
-                setPattern(animationM[frameM_1[aCnt]],2);
-                
+                setPattern(suika[frame_suika[aCnt]], 1);
+
+
                 break;
 
                 //DOWN
@@ -212,7 +214,7 @@ int main(void) {
                         deletePattern();
                     }
                 }
-                setPattern(hanabi[hanabi_frame[aCnt]],0);
+                setPattern(hanabi[hanabi_frame[aCnt]], 0);
                 break;
 
 
@@ -225,7 +227,7 @@ int main(void) {
                         aCnt = 0;
                     }
                 }
-                setPattern(normal[normal_frame[aCnt]],0);
+                setPattern(normal[normal_frame[aCnt]], 0);
                 break;
 
                 //RIGHT 
@@ -237,7 +239,7 @@ int main(void) {
                         aCnt = 0;
                     }
                 }
-                setPattern(broken[broken_frame[aCnt]],0);
+                setPattern(broken[broken_frame[aCnt]], 0);
                 break;
 
 
@@ -250,19 +252,19 @@ int main(void) {
                 //SANKAKU
                 //BATSU
             case 'G':
-                setPattern(batsu,0);
+                setPattern(batsu, 0);
                 break;
 
                 //MARU
             case 'O':
                 //HATENA?
-                setPattern(hatena,0);
+                setPattern(hatena, 0);
                 break;
 
                 //SIKAKU
             case 'P':
                 //BREAK HEART
-                setPattern(break_heart,1);
+                setPattern(break_heart, 1);
                 break;
 
                 //STK-L LEFT
@@ -274,8 +276,8 @@ int main(void) {
                         aCnt = 0;
                     }
                 }
-                setPattern(wave[wave_frame[aCnt]],1);
-                
+                setPattern(wave[wave_frame[aCnt]], 1);
+
                 break;
                 //STK-L RIGHT
                 //ENERGY
@@ -286,7 +288,7 @@ int main(void) {
                         aCnt = sizeof (frameA_1) / sizeof (unsigned char) - 1;
                     }
                 }
-                setPattern(animationA[frameA_1[aCnt]],2);
+                setPattern(animationA[frameA_1[aCnt]], 2);
                 break;
 
                 //STK-L UP
@@ -300,40 +302,47 @@ int main(void) {
                         deletePattern();
                     }
                 }
-                setPattern(startup[startup_frame[aCnt]],0);
+                setPattern(startup[startup_frame[aCnt]], 0);
                 break;
 
                 //STK-L DOWN
             case 'j':
-                setPattern(garapiko,1);
+                setPattern(garapiko, 1);
                 break;
 
                 //STK-R LEFT
-                //RAIBOW - LEFT
             case 'k':
-//                setPattern(grn_pattern,2);
-                setPattern(roomba,1);
+                //SLEEPHEART
+                if (frameCount % 5 == 0) {
+                    aCnt++;
+                    if (aCnt >= sizeof (frameSleepHeart_2) / sizeof (unsigned char)) {
+                        aCnt = sizeof (frameSleepHeart_2) / sizeof (unsigned char) - 1;
+                    }
+                }
+                setPattern(sleep_heart[frameSleepHeart_2[aCnt]], 1);
                 break;
 
                 //STK-R RIGHT
-                //RAIBOW - RIGHT
             case 'l':
-//                setPattern(blu_pattern,2);
-                setPattern(roomba_simple,1);
+                //SLEEPHEART
+                if (frameCount % 5 == 0) {
+                    aCnt++;
+                    if (aCnt >= sizeof (frameSleepHeart_1) / sizeof (unsigned char)) {
+                        aCnt = sizeof (frameSleepHeart_1) / sizeof (unsigned char) - 1;
+                    }
+                }
+                setPattern(sleep_heart[frameSleepHeart_1[aCnt]], 1);
                 break;
 
                 //STK-R UP
             case 'm':
-                //GURUGURU
-//                setPattern(red_pattern,2);
-                
-                setPattern(mocopit,1);
+
+                setPattern(mocopit, 1);
                 break;
 
                 //STK-R DOWN
             case 'n':
-                //CHOU
-                setPattern(mocopit_simple,1);
+                setPattern(mocopit_simple, 1);
                 break;
         }
 
@@ -343,9 +352,9 @@ int main(void) {
     }
 }
 
-void setPattern(const unsigned char* ptn , unsigned char div) {
+void setPattern(const unsigned char* ptn, unsigned char div) {
     unsigned char x, y;
-    
+
     for (y = 0; y < 16; y++) {
         for (x = 0; x < 16; x++) {
             myRed = ptn[x + y * 16] >> div;
@@ -358,7 +367,7 @@ void setPattern(const unsigned char* ptn , unsigned char div) {
             setPixelColor(63 + (y * 64) - (x * 2 + 1), myRed, myGrn, myBlu);
         }
     }
-    
+
 
 }
 
