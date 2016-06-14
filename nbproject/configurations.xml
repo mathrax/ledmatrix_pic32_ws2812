@@ -21,6 +21,7 @@
       <itemPath>ledmatrix_ws2812.h</itemPath>
       <itemPath>sleep_heart.h</itemPath>
       <itemPath>suika.h</itemPath>
+      <itemPath>star.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerFiles"
                    displayName="Linker Files"

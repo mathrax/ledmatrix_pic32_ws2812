@@ -7,12 +7,11 @@
 #include "animationB.h" //BROKEN
 #include "animationD.h" //NOAMRL BLINK
 #include "animationF.h"
-//#include "animationI.h" //GURU    //NO MEMORY
-#include "animationJ.h" //WAVE
-//#include "animationM.h" //ESCARGO
+//#include "animationJ.h" //WAVE
 #include "animationL.h" //HANABI
 #include "suika.h"
 #include "sleep_heart.h" //SLEEP HEART
+#include "star.h" //STAR
 
 // SYSCLK = 40 MHz (8MHz Crystal/ FPLLIDIV * FPLLMUL / FPLLODIV)
 // PBCLK  = 40 MHz
@@ -147,7 +146,7 @@ void __ISR(_UART_1_VECTOR, IPL4) U1RXHandler(void) {
             if (lastData != RcvData) {
                 myData[dataPos] = RcvData;
 
-                if (RcvData == 'k' || RcvData == 'l' || RcvData == 'h' || RcvData == 'i'
+                if (RcvData == 'k' || RcvData == 'l' || RcvData == 'h' || RcvData == 'i' || RcvData == 'g'
                         || RcvData == 'U' || RcvData == 'D' || RcvData == 'L' || RcvData == 'R'
                         || RcvData == 'X') {
                     frameCount = 0;
@@ -268,15 +267,15 @@ int main(void) {
                 break;
 
                 //STK-L LEFT
-                //WAVE
+                //STAR
             case 'g':
                 if (frameCount % 2 == 0) {
                     aCnt++;
-                    if (aCnt >= sizeof (wave_frame) / sizeof (unsigned char)) {
+                    if (aCnt >= sizeof (frameStar) / sizeof (unsigned char)) {
                         aCnt = 0;
                     }
                 }
-                setPattern(wave[wave_frame[aCnt]], 1);
+                setPattern(star[frameStar[aCnt]], 1);
 
                 break;
                 //STK-L RIGHT
@@ -307,7 +306,7 @@ int main(void) {
 
                 //STK-L DOWN
             case 'j':
-                setPattern(garapiko, 1);
+                setPattern(star[0], 1);
                 break;
 
                 //STK-R LEFT
@@ -338,6 +337,7 @@ int main(void) {
             case 'm':
 
                 setPattern(mocopit, 1);
+//                setPattern(star[0], 1);
                 break;
 
                 //STK-R DOWN
