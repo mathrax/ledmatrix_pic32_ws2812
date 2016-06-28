@@ -22,6 +22,8 @@
       <itemPath>sleep_heart.h</itemPath>
       <itemPath>suika.h</itemPath>
       <itemPath>star.h</itemPath>
+      <itemPath>garapiko17.h</itemPath>
+      <itemPath>garapiko17_ani.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerFiles"
                    displayName="Linker Files"
@@ -218,7 +220,7 @@
         <property key="memories.programmemory.partition2.start"
                   value="${memories.programmemory.partition2.start.value}"/>
         <property key="memories.programmemory.start" value="0x1d000000"/>
-        <property key="poweroptions.powerenable" value="true"/>
+        <property key="poweroptions.powerenable" value="false"/>
         <property key="programmertogo.imagename" value=""/>
         <property key="programoptions.donoteraseauxmem" value="false"/>
         <property key="programoptions.eraseb4program" value="true"/>

@@ -9,9 +9,11 @@
 #include "animationF.h"
 //#include "animationJ.h" //WAVE
 #include "animationL.h" //HANABI
-#include "suika.h"
+//#include "suika.h"
 #include "sleep_heart.h" //SLEEP HEART
-#include "star.h" //STAR
+//#include "star.h" //STAR
+#include "garapiko17.h" //KAERU,ONPU,KARASU
+#include "garapiko17_ani.h" //KAMIFUBUKI,JAJAN
 
 // SYSCLK = 40 MHz (8MHz Crystal/ FPLLIDIV * FPLLMUL / FPLLODIV)
 // PBCLK  = 40 MHz
@@ -190,16 +192,14 @@ int main(void) {
 
                 //UP
             case 'U':
-                //SUIKA
-                if (frameCount % 5 == 0) {
+                //KAMIFUBUKI
+                if (frameCount % 3 == 0) {
                     aCnt++;
-                    if (aCnt >= sizeof (frame_suika) / sizeof (unsigned char)) {
-                        aCnt = sizeof (frame_suika) / sizeof (unsigned char) - 1;
+                    if (aCnt >= sizeof (frameKAMIFUBUKI) / sizeof (unsigned char)) {
+                        aCnt = 0;
                     }
                 }
-                setPattern(suika[frame_suika[aCnt]], 1);
-
-
+                setPattern(kamifubuki[frameKAMIFUBUKI[aCnt]], 1);
                 break;
 
                 //DOWN
@@ -213,7 +213,7 @@ int main(void) {
                         deletePattern();
                     }
                 }
-                setPattern(hanabi[hanabi_frame[aCnt]], 0);
+                setPattern(hanabi[hanabi_frame[aCnt]], 1);
                 break;
 
 
@@ -226,7 +226,7 @@ int main(void) {
                         aCnt = 0;
                     }
                 }
-                setPattern(normal[normal_frame[aCnt]], 0);
+                setPattern(normal[normal_frame[aCnt]], 1);
                 break;
 
                 //RIGHT 
@@ -238,7 +238,7 @@ int main(void) {
                         aCnt = 0;
                     }
                 }
-                setPattern(broken[broken_frame[aCnt]], 0);
+                setPattern(broken[broken_frame[aCnt]], 1);
                 break;
 
 
@@ -251,13 +251,13 @@ int main(void) {
                 //SANKAKU
                 //BATSU
             case 'G':
-                setPattern(batsu, 0);
+                setPattern(batsu, 1);
                 break;
 
                 //MARU
             case 'O':
                 //HATENA?
-                setPattern(hatena, 0);
+                setPattern(hatena, 1);
                 break;
 
                 //SIKAKU
@@ -267,15 +267,15 @@ int main(void) {
                 break;
 
                 //STK-L LEFT
-                //STAR
+                //JAJAN
             case 'g':
-                if (frameCount % 2 == 0) {
+                if (frameCount % 4 == 0) {
                     aCnt++;
-                    if (aCnt >= sizeof (frameStar) / sizeof (unsigned char)) {
+                    if (aCnt >= sizeof (frameJAJAN) / sizeof (unsigned char)) {
                         aCnt = 0;
                     }
                 }
-                setPattern(star[frameStar[aCnt]], 1);
+                setPattern(jajan[frameJAJAN[aCnt]], 1);
 
                 break;
                 //STK-L RIGHT
@@ -301,43 +301,32 @@ int main(void) {
                         deletePattern();
                     }
                 }
-                setPattern(startup[startup_frame[aCnt]], 0);
+                setPattern(startup[startup_frame[aCnt]], 1);
                 break;
 
                 //STK-L DOWN
             case 'j':
-                setPattern(star[0], 1);
+                //KARASU
+                setPattern(karasu, 2);
+                
                 break;
 
                 //STK-R LEFT
             case 'k':
-                //SLEEPHEART
-                if (frameCount % 5 == 0) {
-                    aCnt++;
-                    if (aCnt >= sizeof (frameSleepHeart_2) / sizeof (unsigned char)) {
-                        aCnt = sizeof (frameSleepHeart_2) / sizeof (unsigned char) - 1;
-                    }
-                }
-                setPattern(sleep_heart[frameSleepHeart_2[aCnt]], 1);
+
+                setPattern(onpu[0], 1);
                 break;
 
                 //STK-R RIGHT
             case 'l':
-                //SLEEPHEART
-                if (frameCount % 5 == 0) {
-                    aCnt++;
-                    if (aCnt >= sizeof (frameSleepHeart_1) / sizeof (unsigned char)) {
-                        aCnt = sizeof (frameSleepHeart_1) / sizeof (unsigned char) - 1;
-                    }
-                }
-                setPattern(sleep_heart[frameSleepHeart_1[aCnt]], 1);
+
+                setPattern(onpu[1], 1);
                 break;
 
                 //STK-R UP
             case 'm':
-
-                setPattern(mocopit, 1);
-//                setPattern(star[0], 1);
+                //KAERU
+                setPattern(kaeru, 1);
                 break;
 
                 //STK-R DOWN
