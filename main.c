@@ -12,8 +12,8 @@
 //#include "suika.h"
 #include "sleep_heart.h" //SLEEP HEART
 //#include "star.h" //STAR
-#include "garapiko17.h" //KAERU,ONPU,KARASU
-#include "garapiko17_ani.h" //KAMIFUBUKI,JAJAN
+//#include "garapiko17.h" //KAERU,ONPU,KARASU
+#include "patolamp_hasami.h" //KAMIFUBUKI,JAJAN
 
 // SYSCLK = 40 MHz (8MHz Crystal/ FPLLIDIV * FPLLMUL / FPLLODIV)
 // PBCLK  = 40 MHz
@@ -192,14 +192,14 @@ int main(void) {
 
                 //UP
             case 'U':
-                //KAMIFUBUKI
-                if (frameCount % 3 == 0) {
+                //PATOLAMP
+                if (frameCount % 5 == 0) {
                     aCnt++;
-                    if (aCnt >= sizeof (frameKAMIFUBUKI) / sizeof (unsigned char)) {
+                    if (aCnt >= sizeof (framePATOLAMP) / sizeof (unsigned char)) {
                         aCnt = 0;
                     }
                 }
-                setPattern(kamifubuki[frameKAMIFUBUKI[aCnt]], 1);
+                setPattern(patolamp[framePATOLAMP[aCnt]], 1);
                 break;
 
                 //DOWN
@@ -269,13 +269,13 @@ int main(void) {
                 //STK-L LEFT
                 //JAJAN
             case 'g':
-                if (frameCount % 4 == 0) {
-                    aCnt++;
-                    if (aCnt >= sizeof (frameJAJAN) / sizeof (unsigned char)) {
-                        aCnt = 0;
-                    }
-                }
-                setPattern(jajan[frameJAJAN[aCnt]], 1);
+//                if (frameCount % 4 == 0) {
+//                    aCnt++;
+//                    if (aCnt >= sizeof (frameJAJAN) / sizeof (unsigned char)) {
+//                        aCnt = 0;
+//                    }
+//                }
+//                setPattern(jajan[frameJAJAN[aCnt]], 1);
 
                 break;
                 //STK-L RIGHT
@@ -307,26 +307,26 @@ int main(void) {
                 //STK-L DOWN
             case 'j':
                 //KARASU
-                setPattern(karasu, 2);
+//                setPattern(karasu, 2);
                 
                 break;
 
                 //STK-R LEFT
             case 'k':
 
-                setPattern(onpu[0], 1);
+//                setPattern(onpu[0], 1);
                 break;
 
                 //STK-R RIGHT
             case 'l':
 
-                setPattern(onpu[1], 1);
+//                setPattern(onpu[1], 1);
                 break;
 
                 //STK-R UP
             case 'm':
                 //KAERU
-                setPattern(kaeru, 1);
+//                setPattern(kaeru, 1);
                 break;
 
                 //STK-R DOWN
