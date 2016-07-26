@@ -192,20 +192,16 @@ int main(void) {
 
                 //UP
             case 'U':
-                //PATOLAMP
-                if (frameCount % 5 == 0) {
-                    aCnt++;
-                    if (aCnt >= sizeof (framePATOLAMP) / sizeof (unsigned char)) {
-                        aCnt = 0;
-                    }
-                }
-                setPattern(patolamp[framePATOLAMP[aCnt]], 1);
+
+                myData[0] = 0;
+                deletePattern();
                 break;
 
                 //DOWN
                 //HANABI
             case 'D':
                 if (frameCount % 3 == 0) {
+                    frameCount = 0;
                     aCnt++;
                     if (aCnt >= sizeof (hanabi_frame) / sizeof (unsigned char)) {
                         aCnt = sizeof (hanabi_frame) / sizeof (unsigned char) - 1;
@@ -221,6 +217,7 @@ int main(void) {
                 //NORMAL BLINK
             case 'L':
                 if (frameCount % 16 == 0) {
+                    frameCount = 0;
                     aCnt++;
                     if (aCnt >= sizeof (normal_frame) / sizeof (unsigned char)) {
                         aCnt = 0;
@@ -233,6 +230,8 @@ int main(void) {
                 //BROKEN BLINK
             case 'R':
                 if (frameCount % 3 == 0) {
+                    frameCount = 0;
+
                     aCnt++;
                     if (aCnt >= sizeof (broken_frame) / sizeof (unsigned char)) {
                         aCnt = 0;
@@ -267,21 +266,16 @@ int main(void) {
                 break;
 
                 //STK-L LEFT
-                //JAJAN
             case 'g':
-//                if (frameCount % 4 == 0) {
-//                    aCnt++;
-//                    if (aCnt >= sizeof (frameJAJAN) / sizeof (unsigned char)) {
-//                        aCnt = 0;
-//                    }
-//                }
-//                setPattern(jajan[frameJAJAN[aCnt]], 1);
+                myData[0] = 0;
+                deletePattern();
 
                 break;
                 //STK-L RIGHT
                 //ENERGY
             case 'h':
                 if (frameCount % 4 == 0) {
+                    frameCount = 0;
                     aCnt++;
                     if (aCnt >= sizeof (frameA_1) / sizeof (unsigned char)) {
                         aCnt = sizeof (frameA_1) / sizeof (unsigned char) - 1;
@@ -294,6 +288,7 @@ int main(void) {
                 //START UP
             case 'i':
                 if (frameCount % 4 == 0) {
+                    frameCount = 0;
                     aCnt++;
                     if (aCnt >= sizeof (startup_frame) / sizeof (unsigned char)) {
                         aCnt = sizeof (startup_frame) / sizeof (unsigned char) - 1;
@@ -307,31 +302,63 @@ int main(void) {
                 //STK-L DOWN
             case 'j':
                 //KARASU
-//                setPattern(karasu, 2);
-                
+                //                setPattern(karasu, 2);
+                myData[0] = 0;
+                deletePattern();
+
+
                 break;
 
                 //STK-R LEFT
             case 'k':
 
-//                setPattern(onpu[0], 1);
+                //                setPattern(onpu[0], 1);
+
+                myData[0] = 0;
+                deletePattern();
                 break;
 
                 //STK-R RIGHT
             case 'l':
+                //HASAMI
+                if (frameCount % 4 == 0) {
+                    frameCount = 0;
+                    aCnt++;
+                    if (aCnt >= sizeof (frameHASAMI) / sizeof (unsigned char)) {
+                        aCnt = sizeof (frameHASAMI) / sizeof (unsigned char) - 1;
 
-//                setPattern(onpu[1], 1);
+                    }
+                }
+                setPattern(hasami[frameHASAMI[aCnt]], 2);
                 break;
 
                 //STK-R UP
             case 'm':
                 //KAERU
-//                setPattern(kaeru, 1);
+                //                setPattern(kaeru, 1);
+                //PATOLAMP
+                if (frameCount % 5 == 0) {
+                    frameCount = 0;
+                    aCnt++;
+                    if (aCnt >= sizeof (framePATOLAMP2) / sizeof (unsigned char)) {
+                        aCnt = 0;
+                    }
+                }
+                setPattern(patolamp2[framePATOLAMP2[aCnt]], 2);
                 break;
 
                 //STK-R DOWN
             case 'n':
-                setPattern(mocopit_simple, 1);
+                //                setPattern(mocopit_simple, 1);
+                //PATOLAMP1
+                if (frameCount % 5 == 0) {
+                    frameCount = 0;
+                    aCnt++;
+                    if (aCnt >= sizeof (framePATOLAMP1) / sizeof (unsigned char)) {
+                        aCnt = 0;
+                    }
+                }
+                setPattern(patolamp1[framePATOLAMP1[aCnt]], 2);
                 break;
         }
 
