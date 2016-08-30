@@ -13,7 +13,12 @@
 #include "sleep_heart.h" //SLEEP HEART
 //#include "star.h" //STAR
 //#include "garapiko17.h" //KAERU,ONPU,KARASU
-#include "patolamp_hasami.h" //KAMIFUBUKI,JAJAN
+//#include "patolamp_hasami.h" //KAMIFUBUKI,JAJAN
+//#include "cho2.h" //
+//#include "chulip.h" //
+//#include "heart_20160810.h" //
+
+
 
 // SYSCLK = 40 MHz (8MHz Crystal/ FPLLIDIV * FPLLMUL / FPLLODIV)
 // PBCLK  = 40 MHz
@@ -123,7 +128,9 @@ void __ISR(_UART_1_VECTOR, IPL4) U1RXHandler(void) {
     if (RcvData == 255) {
         dataPos = 0;
     } else {
-        if (RcvData == 'X' || RcvData == 'G' || RcvData == 'O' || RcvData == 'P'
+        if (
+                RcvData == 'X' || RcvData == 'G'
+                || RcvData == 'O' || RcvData == 'P'
 
                 || RcvData == 'U' || RcvData == 'D'
                 || RcvData == 'L' || RcvData == 'R'
@@ -150,7 +157,11 @@ void __ISR(_UART_1_VECTOR, IPL4) U1RXHandler(void) {
 
                 if (RcvData == 'k' || RcvData == 'l' || RcvData == 'h' || RcvData == 'i' || RcvData == 'g'
                         || RcvData == 'U' || RcvData == 'D' || RcvData == 'L' || RcvData == 'R'
-                        || RcvData == 'X') {
+                        || RcvData == 'X'
+
+                        || RcvData == 'm' //STK-R UP
+                        || RcvData == 'n' //STK-R DOWN
+                        ) {
                     frameCount = 0;
                     aCnt = 0;
                 } else {
@@ -158,6 +169,7 @@ void __ISR(_UART_1_VECTOR, IPL4) U1RXHandler(void) {
                 }
             }
             dataPos++;
+
             if (dataPos >= 2)dataPos = 0;
         }
     }
@@ -209,7 +221,7 @@ int main(void) {
                         deletePattern();
                     }
                 }
-                setPattern(hanabi[hanabi_frame[aCnt]], 1);
+                setPattern(hanabi[hanabi_frame[aCnt]], 2);
                 break;
 
 
@@ -244,6 +256,7 @@ int main(void) {
                 //BATSU
                 //DELETE
             case 'X':
+                myData[0] = 0;
                 deletePattern();
                 break;
 
@@ -267,8 +280,8 @@ int main(void) {
 
                 //STK-L LEFT
             case 'g':
-                myData[0] = 0;
-                deletePattern();
+                //FULL HEART
+                setPattern(heart_20160810[9], 1);
 
                 break;
                 //STK-L RIGHT
@@ -296,69 +309,54 @@ int main(void) {
                         deletePattern();
                     }
                 }
-                setPattern(startup[startup_frame[aCnt]], 1);
+                setPattern(startup[startup_frame[aCnt]], 2);
                 break;
 
                 //STK-L DOWN
             case 'j':
-                //KARASU
-                //                setPattern(karasu, 2);
                 myData[0] = 0;
                 deletePattern();
-
 
                 break;
 
                 //STK-R LEFT
             case 'k':
-
-                //                setPattern(onpu[0], 1);
-
                 myData[0] = 0;
                 deletePattern();
                 break;
 
                 //STK-R RIGHT
             case 'l':
-                //HASAMI
-                if (frameCount % 4 == 0) {
-                    frameCount = 0;
-                    aCnt++;
-                    if (aCnt >= sizeof (frameHASAMI) / sizeof (unsigned char)) {
-                        aCnt = sizeof (frameHASAMI) / sizeof (unsigned char) - 1;
 
-                    }
-                }
-                setPattern(hasami[frameHASAMI[aCnt]], 2);
+                myData[0] = 0;
+                deletePattern();
                 break;
 
                 //STK-R UP
             case 'm':
-                //KAERU
-                //                setPattern(kaeru, 1);
-                //PATOLAMP
-                if (frameCount % 5 == 0) {
+                //Heart_1
+                if (frameCount % 10 == 0) {
                     frameCount = 0;
                     aCnt++;
-                    if (aCnt >= sizeof (framePATOLAMP2) / sizeof (unsigned char)) {
-                        aCnt = 0;
+                    if (aCnt >= sizeof (frameHEART_20160810_1) / sizeof (unsigned char)) {
+                        aCnt = sizeof (frameHEART_20160810_1) / sizeof (unsigned char) - 1;
                     }
                 }
-                setPattern(patolamp2[framePATOLAMP2[aCnt]], 2);
+                setPattern(heart_20160810[frameHEART_20160810_1[aCnt]], 1);
                 break;
 
                 //STK-R DOWN
             case 'n':
-                //                setPattern(mocopit_simple, 1);
-                //PATOLAMP1
-                if (frameCount % 5 == 0) {
+                //Heart_2
+                if (frameCount % 10 == 0) {
                     frameCount = 0;
                     aCnt++;
-                    if (aCnt >= sizeof (framePATOLAMP1) / sizeof (unsigned char)) {
-                        aCnt = 0;
+                    if (aCnt >= sizeof (frameHEART_20160810_2) / sizeof (unsigned char)) {
+                        aCnt = sizeof (frameHEART_20160810_2) / sizeof (unsigned char) - 1;
                     }
                 }
-                setPattern(patolamp1[framePATOLAMP1[aCnt]], 2);
+                setPattern(heart_20160810[frameHEART_20160810_2[aCnt]], 1);
+
                 break;
         }
 
@@ -373,6 +371,7 @@ void setPattern(const unsigned char* ptn, unsigned char div) {
 
     for (y = 0; y < 16; y++) {
         for (x = 0; x < 16; x++) {
+
             myRed = ptn[x + y * 16] >> div;
             myGrn = ptn[256 + x + y * 16] >> div;
             myBlu = ptn[512 + x + y * 16] >> div;
@@ -388,6 +387,7 @@ void setPattern(const unsigned char* ptn, unsigned char div) {
 }
 
 void setPixelColor(unsigned int pixel, unsigned char r, unsigned char g, unsigned char b) {
+
     red[pixel] = r;
     grn[pixel] = g;
     blu[pixel] = b;
@@ -783,6 +783,7 @@ void show() {
             Neopixel600us();
 
         } else {
+
             neopixel_pin = 1;
             Neopixel350us();
             neopixel_pin = 0;
@@ -798,6 +799,7 @@ void show() {
 void deletePattern() {
     int i;
     for (i = 0; i < 1024; i++) {
+
         red[i] = 0;
         grn[i] = 0;
         blu[i] = 0;

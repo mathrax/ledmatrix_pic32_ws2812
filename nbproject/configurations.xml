@@ -25,6 +25,9 @@
       <itemPath>garapiko17.h</itemPath>
       <itemPath>garapiko17_ani.h</itemPath>
       <itemPath>patolamp_hasami.h</itemPath>
+      <itemPath>cho2.h</itemPath>
+      <itemPath>chulip.h</itemPath>
+      <itemPath>heart_20160810.h</itemPath>
     </logicalFolder>
     <logicalFolder name="LinkerFiles"
                    displayName="Linker Files"
