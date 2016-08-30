@@ -17,6 +17,8 @@
 //#include "cho2.h" //
 //#include "chulip.h" //
 //#include "heart_20160810.h" //
+#include "pencil.h" //
+#include "leaf_20160830.h" //
 
 
 
@@ -280,8 +282,8 @@ int main(void) {
 
                 //STK-L LEFT
             case 'g':
-                //FULL HEART
-                setPattern(heart_20160810[9], 1);
+                myData[0] = 0;
+                deletePattern();
 
                 break;
                 //STK-L RIGHT
@@ -321,15 +323,26 @@ int main(void) {
 
                 //STK-R LEFT
             case 'k':
-                myData[0] = 0;
-                deletePattern();
+                //SLEEPHEART
+                if (frameCount % 5 == 0) {
+                    aCnt++;
+                    if (aCnt >= sizeof (frameSleepHeart_2) / sizeof (unsigned char)) {
+                        aCnt = sizeof (frameSleepHeart_2) / sizeof (unsigned char) - 1;
+                    }
+                }
+                setPattern(sleep_heart[frameSleepHeart_2[aCnt]], 1);
                 break;
 
                 //STK-R RIGHT
             case 'l':
-
-                myData[0] = 0;
-                deletePattern();
+                //SLEEPHEART
+                if (frameCount % 5 == 0) {
+                    aCnt++;
+                    if (aCnt >= sizeof (frameSleepHeart_1) / sizeof (unsigned char)) {
+                        aCnt = sizeof (frameSleepHeart_1) / sizeof (unsigned char) - 1;
+                    }
+                }
+                setPattern(sleep_heart[frameSleepHeart_1[aCnt]], 1);
                 break;
 
                 //STK-R UP
