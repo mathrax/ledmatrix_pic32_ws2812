@@ -206,7 +206,8 @@ int main(void) {
 
                 //UP
             case 'U':
-
+                
+//                setPattern(pencil_sample, 1);
                 myData[0] = 0;
                 deletePattern();
                 break;
@@ -282,8 +283,8 @@ int main(void) {
 
                 //STK-L LEFT
             case 'g':
-                myData[0] = 0;
-                deletePattern();
+               
+                setPattern(leaf, 1);
 
                 break;
                 //STK-L RIGHT
@@ -316,8 +317,14 @@ int main(void) {
 
                 //STK-L DOWN
             case 'j':
-                myData[0] = 0;
-                deletePattern();
+                //PENCIL
+                if (frameCount % 5 == 0) {
+                    aCnt++;
+                    if (aCnt >= sizeof (framePENCIL) / sizeof (unsigned char)) {
+                        aCnt = sizeof (framePENCIL) / sizeof (unsigned char) - 1;
+                    }
+                }
+                setPattern(pencil[framePENCIL[aCnt]], 1);
 
                 break;
 
@@ -347,28 +354,17 @@ int main(void) {
 
                 //STK-R UP
             case 'm':
-                //Heart_1
-                if (frameCount % 10 == 0) {
-                    frameCount = 0;
-                    aCnt++;
-                    if (aCnt >= sizeof (frameHEART_20160810_1) / sizeof (unsigned char)) {
-                        aCnt = sizeof (frameHEART_20160810_1) / sizeof (unsigned char) - 1;
-                    }
-                }
-                setPattern(heart_20160810[frameHEART_20160810_1[aCnt]], 1);
+                //3
+                
+                setPattern(seven, 1);
+                
                 break;
 
                 //STK-R DOWN
             case 'n':
-                //Heart_2
-                if (frameCount % 10 == 0) {
-                    frameCount = 0;
-                    aCnt++;
-                    if (aCnt >= sizeof (frameHEART_20160810_2) / sizeof (unsigned char)) {
-                        aCnt = sizeof (frameHEART_20160810_2) / sizeof (unsigned char) - 1;
-                    }
-                }
-                setPattern(heart_20160810[frameHEART_20160810_2[aCnt]], 1);
+                //5
+                
+                setPattern(five, 1);
 
                 break;
         }
