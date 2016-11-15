@@ -7,18 +7,18 @@
 #include "animationB.h" //BROKEN
 #include "animationD.h" //NOAMRL BLINK
 #include "animationF.h"
-//#include "animationJ.h" //WAVE
+#include "animationJ.h" //WAVE
 #include "animationL.h" //HANABI
 //#include "suika.h"
 #include "sleep_heart.h" //SLEEP HEART
 //#include "star.h" //STAR
-//#include "garapiko17.h" //KAERU,ONPU,KARASU
+#include "garapiko17.h" //KAERU,ONPU,KARASU
 //#include "patolamp_hasami.h" //KAMIFUBUKI,JAJAN
 //#include "cho2.h" //
 //#include "chulip.h" //
 //#include "heart_20160810.h" //
-#include "pencil.h" //
-#include "leaf_20160830.h" //
+//#include "pencil.h" //
+//#include "leaf_20160830.h" //
 
 
 
@@ -283,8 +283,14 @@ int main(void) {
 
                 //STK-L LEFT
             case 'g':
-               
-                setPattern(leaf, 1);
+                //WAVE
+                if (frameCount % 3 == 0) {
+                    aCnt++;
+                    if (aCnt >= sizeof (wave_frame) / sizeof (unsigned char)) {
+                        aCnt = 0;
+                    }
+                }
+                setPattern(wave[wave_frame[aCnt]], 1);
 
                 break;
                 //STK-L RIGHT
@@ -317,14 +323,9 @@ int main(void) {
 
                 //STK-L DOWN
             case 'j':
-                //PENCIL
-                if (frameCount % 5 == 0) {
-                    aCnt++;
-                    if (aCnt >= sizeof (framePENCIL) / sizeof (unsigned char)) {
-                        aCnt = sizeof (framePENCIL) / sizeof (unsigned char) - 1;
-                    }
-                }
-                setPattern(pencil[framePENCIL[aCnt]], 1);
+
+                myData[0] = 0;
+                deletePattern();
 
                 break;
 
@@ -354,17 +355,17 @@ int main(void) {
 
                 //STK-R UP
             case 'm':
-                //3
+                //ONPU_1
                 
-                setPattern(seven, 1);
+                setPattern(onpu[0], 1);
                 
                 break;
 
                 //STK-R DOWN
             case 'n':
-                //5
+                //ONPU_2
                 
-                setPattern(five, 1);
+                setPattern(onpu[1], 1);
 
                 break;
         }
